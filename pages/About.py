@@ -1,7 +1,8 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title = "About - StatEase"
+    page_title = "About - StatEase",
+    page_icon="📊"
 )
 
 st.markdown(
