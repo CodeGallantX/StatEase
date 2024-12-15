@@ -23,11 +23,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Profile section
-st.write("### CodeGallantX")
+st.write("### [CodeGallantX](https://codegallantx.vercel.app)")
 
-# Profile picture
-image = Image.open("Images/codegallantx.jpeg")  # Replace with your image path
+image = Image.open("Images/codegallantx.jpeg") 
 st.image(image, width=150, caption="CodeGallantX", use_column_width=False, output_format="PNG")
 
 # Social Media Section
