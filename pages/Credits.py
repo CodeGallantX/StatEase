@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 
 st.set_page_config(
-    page_title = "Developer - CodeGallantX"
+    page_title = "Credits"
 )
 
 
@@ -54,7 +54,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.write("## CodeGallantX")
+st.write("## CodeGallantX - Software Developer")
 st.write("----")
 st.markdown("""<br/>""", unsafe_allow_html=True)
 

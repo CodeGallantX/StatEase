@@ -113,10 +113,11 @@ elif st.session_state.current_page == "Descriptive Statistics":
             st.write("**Summary Statistics**")
             st.write(selected_data.describe())
 
-            # Measures of Central Tendency
+            st.write("---")
+
             st.write("### Measures of Central Tendency")
             for col in selected_columns:
-                st.write(f"#### {col}")
+                st.write(f"#### Column: _{col}_")
                 total_sum = selected_data[col].sum()
                 num_items = selected_data[col].count()
                 mean = total_sum / num_items
@@ -128,23 +129,26 @@ elif st.session_state.current_page == "Descriptive Statistics":
                 calculation = f"Mean = ({' + '.join(map(str, selected_data[col].dropna().tolist()))}) / {num_items} = {mean:.2f}"
                 st.code(calculation, language="markdown")
 
-                st.write(f"**Median:** {median:.2f}")
-                st.write(f"**Mode:** {mode}")
+                st.write(f"> **Mean:** {mean:.2f}")
+                st.write(f"> **Median:** {median:.2f}")
+                st.write(f"> **Mode:** {mode}")
+                st.write("---")
 
             st.write("### Measures of Dispersion")
             for col in selected_columns:
-                st.write(f"#### {col}")
+                st.write(f"#### Column: _{col}_")
                 variance = selected_data[col].var()
                 std_dev = selected_data[col].std()
                 data_range = selected_data[col].max() - selected_data[col].min()
 
-                st.write(f"**Variance:** {variance:.2f}")
-                st.write(f"**Standard Deviation:** {std_dev:.2f}")
+                st.write(f"> **Variance:** {variance:.2f}")
+                st.write(f"> **Standard Deviation:** {std_dev:.2f}")
                 
                 st.write(f"**Range Calculation:**")
                 st.latex(r"\text{Range} = \text{Max} - \text{Min}")
                 range_calculation = f"Range = {selected_data[col].max():.2f} - {selected_data[col].min():.2f} = {data_range:.2f}"
                 st.code(range_calculation, language="markdown")
+                st.write("---")
 
             st.write("### Copy Workings")
             export_text = ""
@@ -158,7 +162,7 @@ elif st.session_state.current_page == "Descriptive Statistics":
                 std_dev = selected_data[col].std()
                 data_range = selected_data[col].max() - selected_data[col].min()
 
-                export_text += f"**{col}**:\n"
+                export_text += f"** Column: {col}**:\n"
                 export_text += f"- Mean: {mean:.2f} (Sum: {total_sum}, Count: {num_items})\n"
                 export_text += f"- Median: {median:.2f}\n"
                 export_text += f"- Mode: {mode}\n"
@@ -193,14 +197,14 @@ elif st.session_state.current_page == "Data Visualizations":
 
             if plot_type == "Histogram":
                 for col in selected_columns:
-                    st.write(f"**Histogram for {col}**")
+                    st.write(f"**Histogram for _{col}_**")
                     plt.figure(figsize=(8, 4))
                     sns.histplot(df[col], kde=True, bins=20, color="skyblue")
                     st.pyplot(plt)
 
             elif plot_type == "Boxplot":
                 for col in selected_columns:
-                    st.write(f"**Boxplot for {col}**")
+                    st.write(f"**Boxplot for _{col}_**")
                     plt.figure(figsize=(8, 4))
                     sns.boxplot(y=df[col], color="orange")
                     st.pyplot(plt)

@@ -21,6 +21,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
+st.sidebar.markdown("_Made with ❤️ by_ [CodeGallantX](https://github.com/CodeGallantX)")
+
+
 st.header("About")
 
 st.write("### Vision")
