@@ -12,7 +12,8 @@ st.set_page_config(
 
 if "uploaded_data" not in st.session_state:
     st.session_state["uploaded_data"] = None
-
+if "current_page" not in st.session_state:
+    st.session_state["current_page"] = "Home" 
 
 st.title("📊 StatEase")
 st.write("A user-friendly statistics app for descriptive analysis, visualizations, and more!")
@@ -24,7 +25,10 @@ options = st.sidebar.radio(
 )
 st.sidebar.markdown("_Made with ❤️ by [CodeGallantX](https://github.com/CodeGallantX)_")
 
-if options == "Home":
+if options != st.session_state.current_page:
+    st.session_state.current_page = options
+
+if st.session_state.current_page == "Home":
     st.subheader("Welcome to StatEase!")
     st.write("""
         - Upload your dataset to begin statistical analysis.
@@ -36,46 +40,37 @@ if options == "Home":
 
     st.markdown("Get started by uploading dataset or manually inputting data values")
     upload_button = st.button("Upload Dataset")
-    manual_button = st.button("Manually input")
+    manual_button = st.button("Manually Input Data")
 
     if upload_button:
-        options == "Upload Dataset"
+        st.session_state.current_page = "Upload Dataset" 
     if manual_button:
-        options == "Manual Data Input"
+        st.session_state.current_page = "Manual Data Input" 
 
-    
-    
-
-# Upload Dataset Section
-elif options == "Upload Dataset":
+elif st.session_state.current_page == "Upload Dataset":
     st.subheader("Upload Your Dataset")
     uploaded_file = st.file_uploader("Upload your CSV or Excel file:", type=["csv", "xlsx"])
 
     if uploaded_file:
-        # Load CSV or Excel file
         if uploaded_file.name.endswith(".csv"):
             df = pd.read_csv(uploaded_file)
         else:
             df = pd.read_excel(uploaded_file)
 
-        # Store dataset in session state
         st.session_state["uploaded_data"] = df
 
         st.write("**Preview of Uploaded Data**")
         st.dataframe(df.head())
 
-        # Summary statistics
         st.write("**Dataset Summary**")
         st.write(df.describe())
 
-        # Handle missing values
         st.write("**Missing Values**")
         st.write(df.isnull().sum())
     else:
         st.info("Please upload a file to proceed.")
 
-# Descriptive Statistics Section
-elif options == "Descriptive Statistics":
+elif st.session_state.current_page == "Descriptive Statistics":
     st.subheader("Descriptive Statistics")
 
     if st.session_state["uploaded_data"] is None:
@@ -91,18 +86,15 @@ elif options == "Descriptive Statistics":
             st.write("**Summary Statistics**")
             st.write(selected_data.describe())
 
-            # Compute central tendencies
             st.write("**Measures of Central Tendency**")
             for col in selected_columns:
                 st.write(f"- **{col}**: Mean = {selected_data[col].mean():.2f}, Median = {selected_data[col].median():.2f}, Mode = {selected_data[col].mode()[0]}")
 
-            # Measures of dispersion
             st.write("**Measures of Dispersion**")
             for col in selected_columns:
                 st.write(f"- **{col}**: Variance = {selected_data[col].var():.2f}, Std. Dev. = {selected_data[col].std():.2f}")
 
-# Data Visualizations Section
-elif options == "Data Visualizations":
+elif st.session_state.current_page == "Data Visualizations":
     st.subheader("Data Visualizations")
 
     if st.session_state["uploaded_data"] is None:
@@ -143,8 +135,7 @@ elif options == "Data Visualizations":
                     sns.scatterplot(x=df[x_axis], y=df[y_axis], color="green")
                     st.pyplot(plt)
 
-# Manual Data Input Section
-elif options == "Manual Data Input":
+elif st.session_state.current_page == "Manual Data Input":
     st.subheader("Manual Data Input")
     input_type = st.radio("Choose Data Input Type:", ["Ungrouped Data", "Grouped Data"])
 
