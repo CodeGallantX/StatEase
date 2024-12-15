@@ -3,8 +3,6 @@ import config
 import font
 from PIL import Image
 
-
-
 st.markdown(
     """
     <style>

@@ -73,6 +73,8 @@ if st.session_state.current_page == "Home":
         - Future feature: Inferential statistics and hypothesis testing.
     """)
 
+    st.button(label="Nice", type='tertiary')
+
 
 
 elif st.session_state.current_page == "Upload Dataset":
@@ -127,7 +129,6 @@ elif st.session_state.current_page == "Descriptive Statistics":
                 median = selected_data[col].median()
                 mode = selected_data[col].mode()[0]
 
-                # Display calculations for mean
                 st.write(f"**Mean Calculation:**")
                 st.latex(r"\text{Mean } \mu = \frac{\sum x}{n}")
                 calculation = f"Mean = ({' + '.join(map(str, selected_data[col].dropna().tolist()))}) / {num_items} = {mean:.2f}"
@@ -136,7 +137,6 @@ elif st.session_state.current_page == "Descriptive Statistics":
                 st.write(f"**Median:** {median:.2f}")
                 st.write(f"**Mode:** {mode}")
 
-            # Measures of Dispersion
             st.write("### Measures of Dispersion")
             for col in selected_columns:
                 st.write(f"#### {col}")
@@ -144,17 +144,14 @@ elif st.session_state.current_page == "Descriptive Statistics":
                 std_dev = selected_data[col].std()
                 data_range = selected_data[col].max() - selected_data[col].min()
 
-                # Display calculations for variance and standard deviation
                 st.write(f"**Variance:** {variance:.2f}")
                 st.write(f"**Standard Deviation:** {std_dev:.2f}")
                 
-                # Display calculation for range
                 st.write(f"**Range Calculation:**")
                 st.latex(r"\text{Range} = \text{Max} - \text{Min}")
                 range_calculation = f"Range = {selected_data[col].max():.2f} - {selected_data[col].min():.2f} = {data_range:.2f}"
                 st.code(range_calculation, language="markdown")
 
-            # Copy-friendly output
             st.write("### Copy Workings")
             export_text = ""
             for col in selected_columns:
@@ -177,7 +174,6 @@ elif st.session_state.current_page == "Descriptive Statistics":
 
             st.text_area("Copy or Save Workings", export_text, height=200)
 
-            # Optional download as file
             st.download_button(
                 label="Download Calculations as Text File",
                 data=export_text,
@@ -229,7 +225,6 @@ elif st.session_state.current_page == "Data Visualizations":
 
 
 
-# Manual Data Input Section
 elif st.session_state.current_page == "Manual Data Input":
     st.subheader("Manual Data Input")
     input_type = st.radio("Choose Data Input Type:", ["Ungrouped Data", "Grouped Data"])
@@ -238,12 +233,10 @@ elif st.session_state.current_page == "Manual Data Input":
         st.write("### Step 1: Enter ungrouped data points:")
         st.write("Ungrouped data consists of individual data points without grouping into intervals.")
         
-        # Edit table for ungrouped data
         st.session_state.ungrouped_data = st.data_editor(
             st.session_state.ungrouped_data, num_rows="dynamic"
         )
         
-        # Ensure Data Points are numeric
         st.session_state.ungrouped_data["Data Points"] = pd.to_numeric(st.session_state.ungrouped_data["Data Points"], errors='coerce')
 
         # Derived fields
