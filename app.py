@@ -12,6 +12,7 @@ st.set_page_config(
     layout="wide"
 )
 
+
 st.markdown(
     """
     <style>
@@ -28,7 +29,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
 if "uploaded_data" not in st.session_state:
     st.session_state["uploaded_data"] = None
