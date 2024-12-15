@@ -6,35 +6,35 @@ from PIL import Image
 st.markdown(
     """
     <style>
-        /* Change icon color */
         .social-icon {
             filter: invert(42%) sepia(79%) saturate(470%) hue-rotate(160deg) brightness(102%) contrast(97%);
             transition: transform 0.3s ease;
         }
 
-        /* Add hover animation for social icons */
         .social-icon:hover {
             transform: scale(1.2);
         }
 
-        /* Make profile picture more rounded and add animation */
         .profile-img {
             border-radius: 50%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Hover effect for profile picture */
         .profile-img:hover {
             transform: scale(1.1);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        a {
+            text-decoration: none;
         }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-st.write("### [CodeGallantX](https://codegallantx.vercel.app)")
-
+st.write("## CodeGallantX")
+st.write("----")
 st.markdown("""<br/>""", unsafe_allow_html=True)
 
 
