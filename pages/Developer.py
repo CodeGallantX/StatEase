@@ -37,6 +37,8 @@ st.markdown(
 
 st.write("### [CodeGallantX](https://codegallantx.vercel.app)")
 
+st.markdown("""<br/>""", unsafe_allow_html=True)
+
 
 image = Image.open("Images/codegallantx.jpeg") 
 st.image(image, width=150, caption="CodeGallantX", use_column_width=False, output_format="PNG")
@@ -91,6 +93,8 @@ with col5:
         """, unsafe_allow_html=True
     )
 
+st.markdown("""<br>""", unsafe_allow_html=True)
+
 st.write("### Courtesy")
 st.markdown(
     """
@@ -98,6 +102,8 @@ st.markdown(
     Special thanks to everyone who has provided feedback, ideas, and continuous motivation for improvements.
     """
 )
+
+st.markdown("""<br>""", unsafe_allow_html=True)
 
 st.write("### Aim / Vision")
 st.markdown(
@@ -116,4 +122,4 @@ st.markdown(
 )
 
 st.write("---")
-st.write("Built with ❤️ by CodeGallantX")
+st.write("All Rights Reserved 2024 |", "Built with ❤️ by CodeGallantX")
