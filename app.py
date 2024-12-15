@@ -4,22 +4,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Configure the page
 st.set_page_config(
     page_title="StatEase - Statistics Hub",
     page_icon="📊",
     layout="wide"
 )
 
-# Initialize session state for dataset
 if "uploaded_data" not in st.session_state:
     st.session_state["uploaded_data"] = None
 
-# App title and description
+
 st.title("📊 StatEase")
 st.write("A user-friendly statistics app for descriptive analysis, visualizations, and more!")
 
-# Sidebar Navigation
 st.sidebar.title("Menu")
 options = st.sidebar.radio(
     "Choose a section:",
@@ -27,7 +24,6 @@ options = st.sidebar.radio(
 )
 st.sidebar.markdown("_Made with ❤️ by [CodeGallantX](https://github.com/CodeGallantX)_")
 
-# Home Page
 if options == "Home":
     st.subheader("Welcome to StatEase!")
     st.write("""
@@ -37,6 +33,11 @@ if options == "Home":
         - Manually input data for grouped or ungrouped frequency tables.
         - Future feature: Inferential statistics and hypothesis testing.
     """)
+
+    with st.markdown("Get started by uploading dataset or manually inputting data values"):
+        st.button("Upload Dataset")
+        st.button("Manually input")
+    
 
 # Upload Dataset Section
 elif options == "Upload Dataset":
