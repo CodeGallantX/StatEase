@@ -34,9 +34,16 @@ if options == "Home":
         - Future feature: Inferential statistics and hypothesis testing.
     """)
 
-    with st.markdown("Get started by uploading dataset or manually inputting data values"):
-        st.button("Upload Dataset")
-        st.button("Manually input")
+    st.markdown("Get started by uploading dataset or manually inputting data values")
+    upload_button = st.button("Upload Dataset")
+    manual_button = st.button("Manually input")
+
+    if upload_button:
+        options == "Upload Dataset"
+    if manual_button:
+        options == "Manual Data Input"
+
+    
     
 
 # Upload Dataset Section
