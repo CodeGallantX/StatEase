@@ -5,13 +5,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from manual_logic import calculate_statistics, plot_data
 
-
 st.set_page_config(
     page_title="StatEase - Statistics Hub",
     page_icon="📊",
     layout="wide"
 )
-
 
 st.markdown(
     """
@@ -86,7 +84,7 @@ elif st.session_state.current_page == "Upload Dataset":
         st.session_state["uploaded_data"] = df
 
         st.write("**Preview of Uploaded Data**")
-        st.dataframe(df.head())
+        st.dataframe(df.head(8))
 
         st.write("**Dataset Summary**")
         st.write(df.describe())
@@ -103,7 +101,7 @@ elif st.session_state.current_page == "Descriptive Statistics":
     st.subheader("Descriptive Statistics")
 
     if st.session_state["uploaded_data"] is None:
-        st.warning("Please upload a dataset first in the 'Upload Dataset' section.")
+        st.warning("⚠️ Please upload a dataset first in the 'Upload Dataset' section.")
     else:
         df = st.session_state["uploaded_data"]
         st.write("**Choose Columns for Analysis**")
@@ -182,7 +180,7 @@ elif st.session_state.current_page == "Data Visualizations":
     st.subheader("Data Visualizations")
 
     if st.session_state["uploaded_data"] is None:
-        st.warning("Please upload a dataset first in the 'Upload Dataset' section.")
+        st.warning("⚠️ Please upload a dataset first in the 'Upload Dataset' section.")
     else:
         df = st.session_state["uploaded_data"]
         st.write("**Choose Columns for Visualization**")
@@ -209,7 +207,7 @@ elif st.session_state.current_page == "Data Visualizations":
 
             elif plot_type == "Scatter Plot":
                 if len(selected_columns) < 2:
-                    st.warning("Please select at least two columns for a scatter plot.")
+                    st.warning("⚠️ Please select at least two columns for a scatter plot.")
                 else:
                     x_axis = st.selectbox("Select X-axis:", selected_columns)
                     y_axis = st.selectbox("Select Y-axis:", selected_columns)

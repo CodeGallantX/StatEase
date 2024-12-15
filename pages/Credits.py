@@ -1,7 +1,28 @@
 import streamlit as st
-import config
-import font
 from PIL import Image
+
+st.set_page_config(
+    page_title = "Developer - CodeGallantX"
+)
+
+
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Merriweather', serif;
+    }
+
+    p, div, span, li, a {
+        font-family: 'Outfit', sans-serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 st.markdown(
     """
@@ -37,9 +58,17 @@ st.write("## CodeGallantX")
 st.write("----")
 st.markdown("""<br/>""", unsafe_allow_html=True)
 
+col1, col2 = st.columns(2)
 
-image = Image.open("Images/codegallantx.jpeg") 
-st.image(image, width=150, caption="CodeGallantX", use_column_width=False, output_format="PNG")
+with col1:
+    image = Image.open("Images/codegallantx.jpeg") 
+    st.image(image, width=20, caption="CodeGallantX", use_column_width=False, output_format="PNG")
+
+with col2:
+    image = Image.open("Images/ydf_logo.png") 
+    st.image(image, width=150, use_column_width=False, output_format="PNG")
+    st.link_button(label="Yomi Denzel Foundation", url="https://yomidenzelfoundation.org.ng", type="tertiary")
+
 
 st.write("### Connect with me")
 st.write(
@@ -91,6 +120,7 @@ with col5:
         """, unsafe_allow_html=True
     )
 
+
 st.markdown("""<br>""", unsafe_allow_html=True)
 
 st.write("### Courtesy")
@@ -98,24 +128,6 @@ st.markdown(
     """
     We thank all contributors, collaborators, and the open-source community for their unwavering support in bringing this project to life.
     Special thanks to everyone who has provided feedback, ideas, and continuous motivation for improvements.
-    """
-)
-
-st.markdown("""<br>""", unsafe_allow_html=True)
-
-st.write("### Aim / Vision")
-st.markdown(
-    """
-    The primary aim of this project is to provide a tool that simplifies data analysis and helps users quickly process, visualize, and understand their data. 
-    Our vision is to make data more accessible, educational, and easier to interpret for individuals, teams, and businesses.
-    """
-)
-
-st.write("### Mission")
-st.markdown(
-    """
-    Our mission is to develop a user-friendly platform that empowers everyone, regardless of their background, to analyze and visualize data effectively. 
-    We strive to continually improve the tool's functionality and interface to meet the needs of our users.
     """
 )
 
