@@ -1,14 +1,11 @@
 import streamlit as st
+import config
+import font
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-st.set_page_config(
-    page_title="StatEase - Statistics Hub",
-    page_icon="📊",
-    layout="wide"
-)
 
 if "uploaded_data" not in st.session_state:
     st.session_state["uploaded_data"] = None
@@ -40,7 +37,7 @@ if st.session_state.current_page == "Home":
 
     st.markdown("Get started by uploading dataset or manually inputting data values")
     upload_button = st.button("Upload Dataset")
-    manual_button = st.button("Manually Input Data")
+    manual_button = st.button("Input Manually")
 
     if upload_button:
         st.session_state.current_page = "Upload Dataset" 
@@ -88,11 +85,18 @@ elif st.session_state.current_page == "Descriptive Statistics":
 
             st.write("**Measures of Central Tendency**")
             for col in selected_columns:
-                st.write(f"- **{col}**: Mean = {selected_data[col].mean():.2f}, Median = {selected_data[col].median():.2f}, Mode = {selected_data[col].mode()[0]}")
+                st.write(f"> **{col}**: ")
+                st.subheader("Mean")
+                st.latex(r"\frac{\sum x}{n} = ")
+                st.write(f"Mean = {selected_data[col].mean():.2f}")
+                st.write(f"Median = {selected_data[col].median():.2f}")
+                st.write(f"Mode = {selected_data[col].mode()[0]}")
 
             st.write("**Measures of Dispersion**")
             for col in selected_columns:
-                st.write(f"- **{col}**: Variance = {selected_data[col].var():.2f}, Std. Dev. = {selected_data[col].std():.2f}")
+                st.write(f"> **{col}**:")
+                st.write(f" Variance = {selected_data[col].var():.2f}")
+                st.write(f"Standard Deviation = {selected_data[col].std():.2f}")
 
 elif st.session_state.current_page == "Data Visualizations":
     st.subheader("Data Visualizations")
