@@ -1,5 +1,9 @@
 import streamlit as st
+import config
+import font
 from PIL import Image
+
+
 
 # Add custom CSS for animations, icon color change, and rounded profile picture
 st.markdown(
@@ -37,24 +41,7 @@ st.write("### [CodeGallantX](https://codegallantx.vercel.app)")
 
 # Profile picture with rounded corners and hover animation
 image = Image.open("Images/codegallantx.jpeg")  # Replace with your image path
-# Add the 'profile-img' class to the image for animation and hover effect
-st.image(image, width=150, caption="CodeGallantX", use_column_width=False, output_format="PNG", 
-         help="Profile Image", use_container_width=False)
-st.markdown(
-    """
-    <style>
-        .stImage img {
-            border-radius: 50%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .stImage img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.image(image, width=150, caption="CodeGallantX", use_column_width=False, output_format="PNG")
 
 # Social Media Section
 st.write("### Connect with me")
@@ -71,7 +58,7 @@ with col1:
     st.markdown(
         """
         <a href="https://github.com/CodeGallantX">
-            <img class="social-icon" src="https://img.icons8.com/ios-filled/50/000000/github.png" />
+            <img class="social-icon" src="../Images/github.png" />
         </a>
         """, unsafe_allow_html=True
     )
@@ -79,7 +66,7 @@ with col2:
     st.markdown(
         """
         <a href="https://www.linkedin.com/in/john-samuel-cgx">
-            <img class="social-icon" src="Images/linkedin.png" />
+            <img class="social-icon" src="../Images/linkedin.png" />
         </a>
         """, unsafe_allow_html=True
     )
@@ -87,7 +74,7 @@ with col3:
     st.markdown(
         """
         <a href="https://twitter.com/JohnSamue24013">
-            <img class="social-icon" src="Images/twitter.png" />
+            <img class="social-icon" src="https://cdn-icons-png.freepik.com/256/5969/5969020.png" />
         </a>
         """, unsafe_allow_html=True
     )
@@ -95,7 +82,7 @@ with col4:
     st.markdown(
         """
         <a href="https://www.instagram.com/johndayo227">
-            <img class="social-icon" src="Images/instagram.png" />
+            <img class="social-icon" src="../Images/instagram.png" />
         </a>
         """, unsafe_allow_html=True
     )
