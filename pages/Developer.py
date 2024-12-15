@@ -1,47 +1,19 @@
 import streamlit as st
-import config
-import font
 from PIL import Image
 
+# Update session state with the selected page
 
 
-# Add custom CSS for animations, icon color change, and rounded profile picture
-st.markdown(
-    """
-    <style>
-        /* Change icon color */
-        .social-icon {
-            filter: invert(42%) sepia(79%) saturate(470%) hue-rotate(160deg) brightness(102%) contrast(97%);
-            transition: transform 0.3s ease;
-        }
+# Developer/Credits Page
+st.session_state.current_page == "Developer/Credits"
+st.subheader("Developer / Credits")
 
-        /* Add hover animation for social icons */
-        .social-icon:hover {
-            transform: scale(1.2);
-        }
+# Profile section
+st.write("### Developer: CodeGallantX")
 
-        /* Make profile picture more rounded and add animation */
-        .profile-img {
-            border-radius: 50%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Hover effect for profile picture */
-        .profile-img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Title and profile section
-st.write("### [CodeGallantX](https://codegallantx.vercel.app)")
-
-# Profile picture with rounded corners and hover animation
+# Profile picture
 image = Image.open("Images/codegallantx.jpeg")  # Replace with your image path
-st.image(image, width=150, caption="CodeGallantX", use_column_width=False, output_format="PNG")
+st.image(image, width=150, caption="CodeGallantX")
 
 # Social Media Section
 st.write("### Connect with me")
@@ -50,41 +22,31 @@ st.write(
     Follow me on my social media platforms for updates, insights, and more:
     """
 )
-
-# Using columns for social media icons
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown(
         """
-        <a href="https://github.com/CodeGallantX">
-            <img class="social-icon" src="../Images/github.png" />
-        </a>
-        """, unsafe_allow_html=True
+        [![GitHub](Images/github.png)](https://github.com/CodeGallantX)
+        """
     )
 with col2:
     st.markdown(
         """
-        <a href="https://www.linkedin.com/in/john-samuel-cgx">
-            <img class="social-icon" src="../Images/linkedin.png" />
-        </a>
-        """, unsafe_allow_html=True
+        [![LinkedIn](https://img.icons8.com/ios-filled/50/000000/linkedin.png)](https://www.linkedin.com/in/samuel-ayobami-john)
+        """
     )
 with col3:
     st.markdown(
         """
-        <a href="https://twitter.com/JohnSamue24013">
-            <img class="social-icon" src="https://cdn-icons-png.freepik.com/256/5969/5969020.png" />
-        </a>
-        """, unsafe_allow_html=True
+        [![Twitter](https://img.icons8.com/ios-filled/50/000000/twitter.png)](https://twitter.com/your_username)
+        """
     )
 with col4:
     st.markdown(
         """
-        <a href="https://www.instagram.com/johndayo227">
-            <img class="social-icon" src="../Images/instagram.png" />
-        </a>
-        """, unsafe_allow_html=True
+        [![Instagram](https://img.icons8.com/ios-filled/50/000000/instagram-new.png)](https://www.instagram.com/your_username)
+        """
     )
 
 # Courtesy Section
@@ -116,4 +78,4 @@ st.markdown(
 
 # Footer Section
 st.write("---")
-st.write("Built with ❤️ by CodeGallantX")
+st.write("Built with ❤️ by Samuel Ayobami John")
