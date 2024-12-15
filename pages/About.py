@@ -26,6 +26,7 @@ st.sidebar.markdown("_Made with ❤️ by_ [CodeGallantX](https://github.com/Cod
 
 
 st.header("About")
+st.write("---")
 
 st.write("### Vision")
 st.markdown(
