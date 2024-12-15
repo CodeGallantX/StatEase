@@ -61,7 +61,6 @@ if options != st.session_state.current_page:
     st.session_state.current_page = options
 
 if st.session_state.current_page == "Home":
-    st.markdown("Get started by uploading dataset or manually inputting data values")
     upload_button = st.button("Open sidebar to Get Started")
 
     st.subheader("Welcome to StatEase!")
@@ -72,9 +71,6 @@ if st.session_state.current_page == "Home":
         - Manually input data for grouped or ungrouped frequency tables.
         - Future feature: Inferential statistics and hypothesis testing.
     """)
-
-    st.button(label="Nice", type='tertiary')
-
 
 
 elif st.session_state.current_page == "Upload Dataset":
@@ -100,7 +96,7 @@ elif st.session_state.current_page == "Upload Dataset":
     else:
         with open("student_performance.csv", "rb") as csv:
             st.info("Please upload a file to proceed or use sample dataset below")
-            st.download_button(label="Download sample dataset", data=csv, file_name="student_performance.csv", mime="text/csv")
+            st.download_button(label="Download sample dataset", data=csv, file_name="student_performance.csv", type="primary", mime="text/csv")
 
         
 elif st.session_state.current_page == "Descriptive Statistics":
