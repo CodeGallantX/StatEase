@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from manual_logic import calculate_statistics, plot_data
 
 
 st.set_page_config(
@@ -34,25 +35,35 @@ if "uploaded_data" not in st.session_state:
 if "current_page" not in st.session_state:
     st.session_state["current_page"] = "Home" 
 
+   
+if "ungrouped_data" not in st.session_state:
+    st.session_state.ungrouped_data = pd.DataFrame({"Data Points": [None] * 5})
+
+if "grouped_data" not in st.session_state:
+    st.session_state.grouped_data = pd.DataFrame(
+        {"Class Interval": ["" for _ in range(5)], "Frequency": [None] * 5}
+    )
+
 
 
 st.title("📊 StatEase")
 st.write("A user-friendly statistics app for descriptive analysis, visualizations, and more!")
 
-st.markdown("Get started by uploading dataset or manually inputting data values")
-upload_button = st.button("Open sidebar to Get Started")
 
 st.sidebar.title("Menu")
 options = st.sidebar.radio(
     "Choose a section:",
     ["Home", "Upload Dataset", "Descriptive Statistics", "Data Visualizations", "Manual Data Input"]
 )
-st.sidebar.markdown("_Made with ❤️ by [CodeGallantX](https://github.com/CodeGallantX)_")
+st.sidebar.markdown("_Made with ❤️ by_ [CodeGallantX](https://github.com/CodeGallantX)")
 
 if options != st.session_state.current_page:
     st.session_state.current_page = options
 
 if st.session_state.current_page == "Home":
+    st.markdown("Get started by uploading dataset or manually inputting data values")
+    upload_button = st.button("Open sidebar to Get Started")
+
     st.subheader("Welcome to StatEase!")
     st.write("""
         - Upload your dataset to begin statistical analysis.
@@ -214,34 +225,89 @@ elif st.session_state.current_page == "Data Visualizations":
                     sns.scatterplot(x=df[x_axis], y=df[y_axis], color="green")
                     st.pyplot(plt)
 
+
+
+# Manual Data Input Section
 elif st.session_state.current_page == "Manual Data Input":
     st.subheader("Manual Data Input")
     input_type = st.radio("Choose Data Input Type:", ["Ungrouped Data", "Grouped Data"])
 
     if input_type == "Ungrouped Data":
-        st.write("Enter ungrouped data points:")
-        if "ungrouped_data" not in st.session_state:
-            st.session_state.ungrouped_data = pd.DataFrame({"Data Points": [None] * 5})
-
-        st.write("You can edit the table below:")
-        st.session_state.ungrouped_data = st.experimental_data_editor(
+        st.write("### Step 1: Enter ungrouped data points:")
+        st.write("Ungrouped data consists of individual data points without grouping into intervals.")
+        
+        # Edit table for ungrouped data
+        st.session_state.ungrouped_data = st.data_editor(
             st.session_state.ungrouped_data, num_rows="dynamic"
         )
+        
+        # Ensure Data Points are numeric
+        st.session_state.ungrouped_data["Data Points"] = pd.to_numeric(st.session_state.ungrouped_data["Data Points"], errors='coerce')
 
-        st.write("**Entered Data:**")
+        # Derived fields
+        st.write("### Step 2: Optional Derived Fields (e.g., Cumulative Frequency, x², fx², fx)")
+        if st.button("Add Cumulative Frequency"):
+            st.session_state.ungrouped_data["Cumulative Frequency"] = st.session_state.ungrouped_data["Data Points"].cumsum()
+
+        if st.button("Add fx (Data Points × Frequency)"):
+            st.session_state.ungrouped_data["fx"] = st.session_state.ungrouped_data["Data Points"] * st.session_state.ungrouped_data["Data Points"]
+
+        if st.button("Add x² (Square of Data Points)"):
+            st.session_state.ungrouped_data["x²"] = st.session_state.ungrouped_data["Data Points"] ** 2
+        
+        if st.button("Add fx² (Data Points × x²)"):
+            st.session_state.ungrouped_data["fx²"] = st.session_state.ungrouped_data["Data Points"] * st.session_state.ungrouped_data["x²"]
+
+        st.write("### Step 3: Descriptive Statistics")
+        data_points = st.session_state.ungrouped_data["Data Points"].dropna()
+        if len(data_points) > 0:
+            mean, median, mode, std_dev, variance = calculate_statistics(data_points)
+            st.write(f"**Mean**: {mean}")
+            st.write(f"**Median**: {median}")
+            st.write(f"**Mode**: {mode}")
+            st.write(f"**Standard Deviation**: {std_dev}")
+            st.write(f"**Variance**: {variance}")
+
+        if len(data_points) > 0:
+            plot_data(data_points)
+
+        st.write("### Step 4: View the Data")
+        st.write("**Entered Data (with optional derived fields):**")
         st.write(st.session_state.ungrouped_data.dropna().reset_index(drop=True))
 
     elif input_type == "Grouped Data":
-        st.write("Enter grouped data:")
-        if "grouped_data" not in st.session_state:
-            st.session_state.grouped_data = pd.DataFrame(
-                {"Class Interval": ["" for _ in range(5)], "Frequency": [None] * 5}
-            )
-
-        st.write("Edit the table below:")
-        st.session_state.grouped_data = st.experimental_data_editor(
+        st.write("### Step 1: Enter grouped data (Class Intervals and Frequency):")
+        st.write("Grouped data consists of ranges (class intervals) and corresponding frequencies.")
+        
+        st.session_state.grouped_data = st.data_editor(
             st.session_state.grouped_data, num_rows="dynamic"
         )
+        
+        st.session_state.grouped_data["Frequency"] = pd.to_numeric(st.session_state.grouped_data["Frequency"], errors='coerce')
 
-        st.write("**Grouped Frequency Table:**")
+        st.write("### Step 2: Optional Derived Fields (e.g., Cumulative Frequency, x², fx², fx)")
+        if st.button("Add Cumulative Frequency"):
+            st.session_state.grouped_data["Cumulative Frequency"] = st.session_state.grouped_data["Frequency"].cumsum()
+        
+        if st.button("Add x² (Square of Midpoint)"):
+            st.session_state.grouped_data["Midpoint"] = (
+                st.session_state.grouped_data["Class Interval"].apply(lambda x: int(x.split('-')[0])) +
+                st.session_state.grouped_data["Class Interval"].apply(lambda x: int(x.split('-')[1]))
+            ) / 2
+            st.session_state.grouped_data["x²"] = st.session_state.grouped_data["Midpoint"] ** 2
+
+        if "x²" in st.session_state.grouped_data.columns:
+            if st.button("Add fx² (Frequency * x²)"):
+                st.session_state.grouped_data["fx²"] = st.session_state.grouped_data["Frequency"] * st.session_state.grouped_data["x²"]
+
+        if st.button("Add fx (Frequency * Midpoint)"):
+            st.session_state.grouped_data["fx"] = st.session_state.grouped_data["Frequency"] * st.session_state.grouped_data["Midpoint"]
+
+        st.write("### Step 3: Descriptive Statistics and Visualization")
+        if len(st.session_state.grouped_data["Frequency"].dropna()) > 0:
+            grouped_data = st.session_state.grouped_data["Frequency"].dropna()
+            plot_data(grouped_data)
+
+        st.write("### Step 4: View the Data")
+        st.write("**Grouped Frequency Table (with optional derived fields):**")
         st.write(st.session_state.grouped_data.dropna().reset_index(drop=True))
