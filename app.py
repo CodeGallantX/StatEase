@@ -97,7 +97,7 @@ elif st.session_state.current_page == "Upload Dataset":
         st.write(df.isnull().sum())
     else:
         st.info("Please upload a file to proceed or use sample dataset below")
-        st.download_button(label="Sample_dataset", data="csv", file_name="sample_data.csv", mime="text/csv")
+        st.download_button(label="Download sample dataset", data="csv", file_name="student_performance.csv", mime="text/csv")
 
         
 elif st.session_state.current_page == "Descriptive Statistics":
