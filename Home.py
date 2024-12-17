@@ -88,6 +88,9 @@ elif st.session_state.current_page == "Upload Dataset":
 
         st.write("**Dataset Summary**")
         st.write(df.describe())
+        
+        st.write("**Dataset Info**")
+        st.write(df.info())
 
         st.write("**Missing Values**")
         st.write(df.isnull().sum())
@@ -193,21 +196,24 @@ elif st.session_state.current_page == "Data Visualizations":
 
         if selected_columns:
             st.write("**Available Plots**")
-            plot_type = st.selectbox("Select a plot type:", ["Histogram", "Boxplot", "Scatter Plot"])
+            plot_type = st.selectbox(
+                "Select a plot type:",
+                ["Histogram", "Boxplot", "Scatter Plot", "Line Chart"]
+            )
+
+            import plotly.express as px
 
             if plot_type == "Histogram":
                 for col in selected_columns:
-                    st.write(f"**Histogram for _{col}_**")
-                    plt.figure(figsize=(8, 4))
-                    sns.histplot(df[col], kde=True, bins=20, color="skyblue")
-                    st.pyplot(plt)
+                    st.write(f"**Interactive Histogram for _{col}_**")
+                    fig = px.histogram(df, x=col, nbins=20, title=f"Histogram of {col}", marginal="box", opacity=0.75)
+                    st.plotly_chart(fig, use_container_width=True)
 
             elif plot_type == "Boxplot":
                 for col in selected_columns:
-                    st.write(f"**Boxplot for _{col}_**")
-                    plt.figure(figsize=(8, 4))
-                    sns.boxplot(y=df[col], color="orange")
-                    st.pyplot(plt)
+                    st.write(f"**Interactive Boxplot for _{col}_**")
+                    fig = px.box(df, y=col, title=f"Boxplot of {col}")
+                    st.plotly_chart(fig, use_container_width=True)
 
             elif plot_type == "Scatter Plot":
                 if len(selected_columns) < 2:
@@ -216,10 +222,21 @@ elif st.session_state.current_page == "Data Visualizations":
                     x_axis = st.selectbox("Select X-axis:", selected_columns)
                     y_axis = st.selectbox("Select Y-axis:", selected_columns)
 
-                    st.write(f"**Scatter Plot: {x_axis} vs {y_axis}**")
-                    plt.figure(figsize=(8, 4))
-                    sns.scatterplot(x=df[x_axis], y=df[y_axis], color="green")
-                    st.pyplot(plt)
+                    st.write(f"**Interactive Scatter Plot: {x_axis} vs {y_axis}**")
+                    fig = px.scatter(df, x=x_axis, y=y_axis, title=f"Scatter Plot of {x_axis} vs {y_axis}")
+                    st.plotly_chart(fig, use_container_width=True)
+
+            elif plot_type == "Line Chart":
+                if len(selected_columns) < 2:
+                    st.warning("⚠️ Please select at least two columns for a line chart.")
+                else:
+                    x_axis = st.selectbox("Select X-axis (Time/Sequence):", selected_columns)
+                    y_axis = st.selectbox("Select Y-axis (Values):", selected_columns)
+
+                    st.write(f"**Interactive Line Chart: {x_axis} vs {y_axis}**")
+                    fig = px.line(df, x=x_axis, y=y_axis, title=f"Line Chart of {x_axis} vs {y_axis}")
+                    st.plotly_chart(fig, use_container_width=True)
+
 
 
 
