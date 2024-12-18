@@ -41,18 +41,12 @@ with register:
         agree = st.checkbox("I agree to the terms and conditions.", value=False)
         submit = st.form_submit_button("Register", type="primary")
 
-
-        if submit:
-            if db["username"] == "" or db["password"] == "" or db["email"]:
-                db["username"] == "" and db["password"] == "" and db["email"]
-                st.error("All fields are required")
-            elif db["username"] == db["username"] and db["password"] == db["password"] and db["email"] == db["email"]:
-                db["username"] == db["username"] and db["password"] == db["password"] and db["email"] == db["email"]
-                with st.spinner("Loading..."):
-                    time.sleep(2)
-                    st.link_button("Go to login page", "Login")
-                    st.toast("Registration successful!", icon="✅")
-            else:
-                st.error("All fields are required")
+if submit and db["username"] == "" or db["password"] == "" or db["email"]:
+    st.error("All fields are required")
+else:
+    with st.spinner("Loading..."):
+        time.sleep(2)
+        st.link_button("Go to login page", "Login")
+        st.toast("Registration successful!", icon="✅")
 
 st.link_button("Already have an account? Login", 'Login', type="tertiary")
