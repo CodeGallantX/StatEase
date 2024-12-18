@@ -1,16 +1,17 @@
 import streamlit as st
 import time
-from database import db
+from database import db  # Ensure database.py exists in the same directory
 
 st.set_page_config(
-    page_title = "Login - StatEase",
-    # page_icon="📊"
-)   
+    page_title="Login - StatEase",
+    layout="centered",
+)
 
+# Custom CSS for styling
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900&family=Outfit:wght@100..900&display=swap');
 
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Merriweather', serif;
@@ -21,36 +22,41 @@ st.markdown(
     }
     </style>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
-
+# Sidebar branding
 st.sidebar.markdown("_Made with ❤️ by_ [CodeGallantX](https://github.com/CodeGallantX)")
 
+# Page Header
 st.header("Login")
 
+# Login form container
 login = st.container()
 with login:
     with st.form("login_form"):
         email = st.text_input("Email")
         password = st.text_input("Password", type="password")
         remember = st.checkbox("Remember me")
-        submit = st.form_submit_button("Login", type="primary")
+        submit = st.form_submit_button("Login")
 
 if submit:
-    if db["email"] == email and db["password"] == password:
+    if email == "" or password == "":
+        st.error("All fields are required.")
+    elif email == db.get("email") and password == db.get("password"):
+        # Simulated login using database values
         with st.spinner("Loading..."):
             time.sleep(2)
-            st.link_button("Go to dashboard", "Dashboard")
-            st.success("Login successful!", icon="✅")
-    elif email == "kiasmith@mail.com" and password=="password123":
+        st.success("Login successful!")
+        st.button("Go to Dashboard")
+    elif email == "kiasmith@mail.com" and password == "password123":
+        # Hardcoded fallback credentials
         with st.spinner("Loading..."):
             time.sleep(2)
-            st.link_button("Go to dashboard", "Dashboard")
-            st.toast("Login successful!", icon="✅")
-    elif email == "" or password=="":
-        st.error("All fields are required")
+        st.success("Login successful!")
+        st.button("Go to Dashboard")
     else:
-        st.error("Invalid login details")
+        st.error("Invalid login details.")
 
-st.link_button("Don't have an account? Register", 'register', type="tertiary")
+# Link for new users
+st.markdown("[Don't have an account? Register](#)")
