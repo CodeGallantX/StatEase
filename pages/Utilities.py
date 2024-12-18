@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+import font
 
 # Initial setup
 bus = [] 

@@ -1,5 +1,6 @@
 import streamlit as st
 from database import db
+import font
 from datetime import datetime
 
 if "db" not in st.session_state:

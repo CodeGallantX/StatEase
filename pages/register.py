@@ -1,8 +1,6 @@
 import streamlit as st
 import time
-
-# Simulated database as a dictionary
-db = {}
+from database import db
 
 # Set page configuration
 st.set_page_config(
