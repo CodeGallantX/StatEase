@@ -1,31 +1,14 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 from manual_logic import calculate_statistics, plot_data
 
 st.set_page_config(
     page_title="StatEase - Statistics Hub",
     page_icon="📊",
     layout="wide"
-)
-
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
-
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Merriweather', serif;
-    }
-
-    p, div, span, li, a {
-        font-family: 'Outfit', sans-serif;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
 )
 
 if "uploaded_data" not in st.session_state:
