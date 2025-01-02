@@ -113,6 +113,7 @@ def calculate_stats_with_workings(class_intervals, frequencies):
 
 st.title("STA111: Statistics Project")
 st.write("This page is for the STA111 project and will guide you in completing your statistical calculations.")
+st.button("Open the sidebar to get started")
 
 st.sidebar.header("Input Data")
 num_intervals = st.sidebar.number_input("Number of class intervals", min_value=1, step=1, value=5)
