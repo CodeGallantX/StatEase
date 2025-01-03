@@ -120,7 +120,7 @@ def calculate_stats_with_workings(class_intervals, frequencies):
 
 st.title("STA111: Statistics Project")
 st.write("This page is for the STA111 project and will guide you in completing your statistical calculations.")
-st.button("Open the sidebar to get started")
+st.button("Open the sidebar to get started", type="primary")
 
 st.sidebar.header("Input Data")
 num_intervals = st.sidebar.number_input("Number of class intervals", min_value=1, step=1, value=5)
@@ -134,14 +134,13 @@ for i in range(num_intervals):
             class_intervals.append([float(x) for x in interval.split("-")])
         except ValueError:
             st.sidebar.error("Invalid format. Use 'a-b' (e.g., 50-59).")
-
 st.sidebar.subheader("Frequencies")
 frequencies = []
 for i in range(num_intervals):
     freq = st.sidebar.number_input(f"Frequency for Interval {i + 1}:", min_value=0, step=1, value=0, key=f"freq_{i}")
     frequencies.append(freq)
 
-if st.sidebar.button("Calculate Statistics"):
+if st.sidebar.button("Calculate Statistics", type="primary"):
     if len(class_intervals) == num_intervals and len(frequencies) == num_intervals:
         results = calculate_stats_with_workings(class_intervals, frequencies)
 
@@ -153,26 +152,31 @@ if st.sidebar.button("Calculate Statistics"):
         st.markdown("### Mean")
         st.latex(results["mean_working"])
         st.write(f"> Mean = {results['mean']}")
+        st.write("---")
 
         st.markdown("### Median")
         st.latex(results["median_working"])
         st.write(f"> Median = {results['median']}")
+        st.write("---")
 
         st.markdown("### Mode")
         st.latex(results["mode_working"])
         st.write(f"> Mode = {results['mode']}")
+        st.write("---")
 
         st.markdown("### Variance and Coefficient of Variation")
         st.latex(results["variance_working"])
         st.latex(results["cv_working"])
         st.write(f"> Variance = {results['variance']}")
         st.write(f"> Coefficient of Variation (cv) = {results['cv']}%")
+        st.write("---")
 
         st.markdown("### Minimum and Maximum Values")
         # st.write(results["min_working"])
         st.write(f"> Min = {results['min']}")
         # st.write(results["max_working"])
         st.write(f"> Max = {results['max']}")
+        st.write("---")
 
         st.markdown("### Quartiles, Deciles, Percentiles")
         st.latex(results["quartile_working"])
@@ -183,3 +187,4 @@ if st.sidebar.button("Calculate Statistics"):
         st.write(f"> 7th Decile = {results['seventh_decile']}")
         st.latex(results["percentile_working"])
         st.write(f"> 83rd Percentile = {results['eighty_third_percentile']}")
+        st.write("---")
