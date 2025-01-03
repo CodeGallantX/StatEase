@@ -2,6 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+st.set_page_config(
+    page_title="Project - StatEase",
+    page_icon="🎯",
+    layout="wide"
+)
+
 def calculate_stats_with_workings(class_intervals, frequencies):
     midpoints = [(interval[0] + interval[1]) / 2 for interval in class_intervals]
     f = np.array(frequencies)
@@ -110,6 +116,7 @@ def calculate_stats_with_workings(class_intervals, frequencies):
         "decile_working": decile_working,
         "percentile_working": percentile_working,
     }
+
 
 st.title("STA111: Statistics Project")
 st.write("This page is for the STA111 project and will guide you in completing your statistical calculations.")
