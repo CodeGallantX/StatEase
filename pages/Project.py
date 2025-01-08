@@ -44,7 +44,7 @@ def calculate_stats_with_workings(class_intervals, frequencies, assumed_mean=Non
 
     # Median Calculation
     median_class = next(i for i, cf in enumerate(cumulative_f) if cf >= n / 2)
-    L = class_intervals[median_class][0]
+    L = class_intervals[median_class][0]- 0.5
     F = cumulative_f[median_class - 1] if median_class > 0 else 0
     f_median = f[median_class]
     width = class_intervals[median_class][1] - class_intervals[median_class][0]
