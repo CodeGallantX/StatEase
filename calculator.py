@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-# from scipy import stats
+from scipy import stats
 from streamlit_modal import Modal
 
 def toggle_calculator():
@@ -74,7 +74,7 @@ def toggle_calculator():
                 if len(data) > 1:
                     mean = np.mean(data)
                     median = np.median(data)
-                    # mode = stats.mode(data)[0][0] 
+                    mode = stats.mode(data)[0][0] 
                     std_dev = np.std(data)
                     variance = np.var(data)
                     sum_of_squares = np.sum(np.square(data))
@@ -102,7 +102,7 @@ def toggle_calculator():
                     if len(data) >= 2:
                         x = np.array(range(1, len(data) + 1))
                         y = np.array(data)
-                        # slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+                        slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
                         st.write(f"Linear Regression - Slope: {slope:.2f}, Intercept: {intercept:.2f}")
                         st.write(f"R-squared value: {r_value**2:.2f}")
 
