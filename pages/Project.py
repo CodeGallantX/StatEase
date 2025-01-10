@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-# from calculator import toggle_calculator
+from calculator import toggle_calculator
 
 st.set_page_config(
     page_title="Project - StatEase",
@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# toggle_calculator()
+toggle_calculator()
 
 def calculate_stats_with_workings(class_intervals, frequencies, assumed_mean=None):
     midpoints = [(interval[0] + interval[1]) / 2 for interval in class_intervals]
