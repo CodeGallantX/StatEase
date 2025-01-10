@@ -17,7 +17,7 @@ def toggle_calculator():
                 "Select the type of calculation:",
                 ["Basic Arithmetic", "Statistics"]
             )
-
+            
             if calculation_type == "Basic Arithmetic":
                 numbers_input = st.text_area(
                     "Enter numbers (comma-separated):",

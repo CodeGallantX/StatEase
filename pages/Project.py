@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from calculator import toggle_calculator
+# from calculator import toggle_calculator
 
 st.set_page_config(
     page_title="Project - StatEase",
