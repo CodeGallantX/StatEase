@@ -5,3 +5,4 @@ matplotlib
 seaborn
 openpyxl
 scipy
+streamlit_modal
